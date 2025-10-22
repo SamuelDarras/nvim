@@ -25,6 +25,8 @@ require('plugins').setup({
     'https://github.com/ggandor/leap.nvim',
     'https://github.com/mason-org/mason.nvim',
     'https://github.com/chomosuke/typst-preview.nvim',
+    'https://github.com/tpope/vim-fugitive',
+    'https://github.com/lewis6991/gitsigns.nvim',
 })
 require('autocmds').setup()
 
@@ -60,6 +62,7 @@ require('blink.cmp').setup({
 })
 require('mason').setup()
 require('typst-preview').setup()
+require('gitsigns').setup()
 
 require('keymaps').setup({
     { 'n', '<leader>f', '<cmd>Pick files<CR>' },
@@ -80,12 +83,18 @@ vim.lsp.config['lua_ls'] = {
         }
     }
 }
+vim.lsp.config['tinymist'] = {
+    settings = {
+        fontPaths = { "./fonts" },
+    }
+}
 
 vim.lsp.enable({
     'lua_ls',
     'rust_analyzer',
     'zls',
     'clangd',
+    'tinymist',
 })
 
 vim.cmd.colorscheme('duskfox')
