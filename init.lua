@@ -13,13 +13,16 @@ vim.o.listchars = 'tab:» ,trail:•'
 vim.o.virtualedit = 'block'
 
 require('plugins').setup({
-    'https://github.com/EdenEast/nightfox.nvim', -- Colorscheme
+    -- Colorscheme --
+    'https://github.com/EdenEast/nightfox.nvim',
+    -----------------
     'https://github.com/stevearc/oil.nvim',
     'https://github.com/echasnovski/mini.pick',
     'https://github.com/echasnovski/mini.surround',
     'https://github.com/neovim/nvim-lspconfig',
     'https://github.com/saghen/blink.cmp',  -- Completion
     'https://github.com/j-hui/fidget.nvim', -- Notifications
+    'https://github.com/cohama/lexima.vim', -- Auto-pairs
     'https://github.com/nvim-lua/plenary.nvim',
     'https://github.com/jiaoshijie/undotree',
     'https://github.com/ggandor/leap.nvim',
@@ -61,7 +64,9 @@ require('blink.cmp').setup({
     fuzzy = { implementation = 'lua' }
 })
 require('mason').setup()
-require('typst-preview').setup()
+
+require('typst-preview').setup({ extra_args = { "--font-path=./fonts" } })
+
 require('gitsigns').setup()
 
 require('keymaps').setup({
@@ -83,19 +88,18 @@ vim.lsp.config['lua_ls'] = {
         }
     }
 }
-vim.lsp.config['tinymist'] = {
-    settings = {
-        fontPaths = { "./fonts" },
-    }
-}
 
 vim.lsp.enable({
     'lua_ls',
     'rust_analyzer',
     'zls',
     'clangd',
+    'serve-d',
     'tinymist',
+    'jdtls',
 })
 
-vim.cmd.colorscheme('duskfox')
-vim.cmd('hi statusline guibg=NONE')
+require('mycolors.compline').setup()
+
+-- vim.cmd.colorscheme('compline')
+-- vim.cmd('hi statusline guibg=NONE')
